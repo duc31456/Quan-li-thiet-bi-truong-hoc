@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgrounddangky"
+    android:orientation="vertical"
+    android:weightSum="3"
+    tools:context=".Activity_dangky">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="bottom|left"
+            android:text="Chọn 1 tấm hình avatar:"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="126dp"
+            android:layout_weight="2.5"
+            app:srcCompat="@drawable/img_1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btncamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_camera"
+                android:text="Camera"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnfolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_thuvienanh"
+                android:text="Thư viện ảnh"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <EditText
+            android:id="@+id/btnsdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Nhập sdt:"
+            android:inputType="number"
+            android:textColorHint="#546E7A"
+            android:textStyle="bold" />
+
+        <EditText
+
+            android:id="@+id/btntk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Nhập tài khoản:"
+            android:inputType="textPersonName"
+            android:textColorHint="#546E7A"
+            android:textStyle="bold" />
+
+        <EditText
+
+            android:id="@+id/btnmk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Nhập password:"
+            android:inputType="textPassword"
+            android:textColorHint="#546E7A"
+            android:textStyle="bold" />
+
+        <EditText
+
+            android:id="@+id/btnconfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Xác nhận password:"
+            android:inputType="textPassword"
+            android:textColorHint="#546E7A"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btndangky2"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="150dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_btndangnhap"
+            android:text="đăng ký"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

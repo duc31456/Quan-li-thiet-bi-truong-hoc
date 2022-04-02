@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/custom_btndangnhap.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/custom_camera.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/custom_thuvienanh.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_dangky.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_loaithietbi2.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/activity_loaithietbi.xml" value="0.13055555555555556" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/activity_main_drawer.xml" value="0.19183673469387755" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/thongtin_canhan.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
