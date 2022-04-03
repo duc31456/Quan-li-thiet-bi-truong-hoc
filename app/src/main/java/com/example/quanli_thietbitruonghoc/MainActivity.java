@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.CursorWindow;
+import java.lang.reflect.Field;
+
 
 import java.util.ArrayList;
 
@@ -23,11 +26,23 @@ public class MainActivity extends AppCompatActivity {
     TextView btndangky;
     Integer REQUEST_CODE_DANG_KY = 123;
     public static SQL sql;
-    ArrayList<class_admin> admin;
+    public static ArrayList<class_admin> admin;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //bộ nhớ con trỏ
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); //100MB
+        } catch (Exception e) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
+        }
 
         btndangky = findViewById(R.id.btndangky);
         btndangnhap = findViewById(R.id.btndangnhap);
@@ -38,52 +53,54 @@ public class MainActivity extends AppCompatActivity {
         animation();
 
         admin = new ArrayList<>();
-        sql = new SQL(this, "dbQuanLi", null, 1);
+        sql = new SQL(this, "Database", null, 1);
 
-        sql.query_data("create table if not exists ADMIN(taikhoan varchar(20) primary key, sdt Integer, matkhau varchar(20), avatar blob)");
+        sql.query_data("create table if not exists LOGIN(ID Integer primary key autoincrement,Taikhoan varchar(20), SDT varchar(20), MatKhau varchar(20), Avatar blob)");
 
+       // sql.query_data("insert into LOGIN values (null, 'cun123', '12345', 'cun123', null)");
+        sql.query_data("delete from LOGIN where Taikhoan = ''");
         btndangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Activity_dangky.class);
                 startActivityForResult(intent, REQUEST_CODE_DANG_KY);
-
             }
         });
 
         btndangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectadmin();
-                for(int i = 0; i < admin.size(); i++)
-                {
-                    if(admin.get(i).getTaikhoan() == editname.getText().toString().trim() && admin.get(i).getMatkhau() == editpass.getText().toString().trim())
+                Intent intent = new Intent(MainActivity.this, Activity_loaithietbi.class);
+                for(int i = 0; i < admin.size(); i++) {
+                    if (admin.get(i).getTaikhoan().equals(editname.getText().toString().trim()) && admin.get(i).getMatkhau().equals(editpass.getText().toString().trim()))
                     {
-                        Intent intent = new Intent(MainActivity.this, Activity_loaithietbi.class);
                         Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 }
-                    Toast.makeText(MainActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
+        selectadmin();
     }
 
     public void selectadmin()
     {
         //select data
-        Cursor cursor = sql.select_data("select * from ADMIN");
-        admin.clear();
-        while (cursor.moveToNext())
-        {
-            String taikhoan = cursor.getString(0);
-            Integer sdt = cursor.getInt(1);
-            String matkhau = cursor.getString(2);
-            byte[] avatar = cursor.getBlob(3);
-            admin.add(new class_admin(taikhoan, sdt, matkhau, avatar));
-        }
+        Cursor cursor = sql.select_data("select * from LOGIN");
+      //  admin.clear();
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                Integer id = cursor.getInt(0);
+                String taikhoan = cursor.getString(1);
+                String sdt = cursor.getString(2);
+                String matkhau = cursor.getString(3);
+                byte[] avatar = cursor.getBlob(4);
+                admin.add(new class_admin(id, taikhoan, sdt, matkhau, avatar));
+            //    Toast.makeText(MainActivity.this, id +"\n"+taikhoan+"\n" + matkhau , Toast.LENGTH_SHORT).show();
 
+            }
+        }
     }
 
     public void animation()
@@ -99,12 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE_DANG_KY && resultCode == RESULT_OK && data != null)
-        {
-            Bundle bundle = data.getExtras();
-            Toast.makeText(this, bundle.getString("dangky"), Toast.LENGTH_SHORT).show();
 
-        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

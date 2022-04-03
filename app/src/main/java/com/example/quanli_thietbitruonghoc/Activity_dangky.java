@@ -29,12 +29,11 @@ public class Activity_dangky extends AppCompatActivity {
     ImageView image;
     Integer REQUEST_CAMERA = 111;
     Integer REQUEST_FOLDER = 121;
-    SQL sql;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dangky);
-
 
         btncamera = findViewById(R.id.btncamera);
         btnfolder = findViewById(R.id.btnfolder);
@@ -63,32 +62,31 @@ public class Activity_dangky extends AppCompatActivity {
             }
         });
 
+
         btndangky2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BitmapDrawable bitmapDrawable = (BitmapDrawable) image.getDrawable();
                 Bitmap bitmap = bitmapDrawable.getBitmap();
                 ByteArrayOutputStream byteArrayInputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100,byteArrayInputStream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayInputStream);
                 byte[] avatar = byteArrayInputStream.toByteArray();
 
-/*                Cursor cursor = sql.select_data("select * from ADMIN");
-                while (cursor.moveToNext())
-                {
-                    String taikhoan = cursor.getString(0);
-                    Integer sdt = cursor.getInt(1);
-                    String matkhau = cursor.getString(2);
-                    if(taikhoan != txttk.getText().toString().trim() && matkhau != txtmk.getText().toString().trim() && txtmk.getText().toString().trim() == txtconfirm.getText().toString().trim())
-                    {*/
-
-                sql.insert_data(txttk.getText().toString().trim(), Integer.valueOf(txtsdt.getText().toString().trim()), txtmk.getText().toString().trim(), avatar);
-                        final Intent data = new Intent();
-                        data.putExtra("dangky", "Đăng ký thành công!");
-                        setResult(RESULT_OK, data);
+                if(txttk.getText().toString() != "" || txtmk.getText().toString() != "" || txtsdt.getText().toString() != "") {
+                    if (txtmk.getText().toString().equals(txtconfirm.getText().toString())) {
+                        MainActivity.sql.insert_data(txttk.getText().toString().trim(), txtsdt.getText().toString().trim(), txtmk.getText().toString().trim(), avatar);
+                        Toast.makeText(Activity_dangky.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                         finish();
-               //     }
-              //  }
-              //      Toast.makeText(Activity_dangky.this, "Đăng ký không thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(Activity_dangky.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(Activity_dangky.this, "Vui lòng nhập đầy đủ!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

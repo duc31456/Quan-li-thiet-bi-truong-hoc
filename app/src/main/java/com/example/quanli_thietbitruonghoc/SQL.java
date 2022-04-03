@@ -26,17 +26,17 @@ public class SQL extends SQLiteOpenHelper {
     }
 
     //insert có image(trường hợp phức tạp)
-    public void insert_data(String taikhoan, Integer sdt , String matkhau, byte[] avatar)
+    public void insert_data(String taikhoan, String sdt , String matkhau, byte[] avatar)
     {
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "Insert into ADMIN values (?, ?, ?, ?)";
+        String sql = "Insert into LOGIN values (null, ?, ?, ?, ?)";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
 
-        statement.bindString(0, taikhoan);
-        statement.bindDouble(1, sdt);
-        statement.bindString(2, matkhau);
-        statement.bindBlob(3, avatar);
+        statement.bindString(1, taikhoan);
+        statement.bindString(2, sdt);
+        statement.bindString(3, matkhau);
+        statement.bindBlob(4, avatar);
 
         statement.executeInsert();
     }

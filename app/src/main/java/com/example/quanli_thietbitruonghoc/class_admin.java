@@ -1,16 +1,26 @@
 package com.example.quanli_thietbitruonghoc;
 
 public class class_admin {
+    private Integer id;
     private String taikhoan;
-    private Integer sdt;
+    private String sdt;
     private String matkhau;
     private byte[] avatar;
 
-    public class_admin(String taikhoan, Integer sdt, String matkhau, byte[] avatar) {
+    public class_admin(Integer id, String taikhoan, String sdt, String matkhau, byte[] avatar) {
+        this.id = id;
         this.taikhoan = taikhoan;
         this.sdt = sdt;
         this.matkhau = matkhau;
         this.avatar = avatar;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTaikhoan() {
@@ -21,11 +31,11 @@ public class class_admin {
         this.taikhoan = taikhoan;
     }
 
-    public Integer getSdt() {
+    public String getSdt() {
         return sdt;
     }
 
-    public void setSdt(Integer sdt) {
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 
