@@ -1,4 +1,4 @@
-package com.example.quanli_thietbitruonghoc;
+package com.example.quanli_thietbitruonghoc.Class;
 
 public class class_loaithietbi {
     private String maloai;

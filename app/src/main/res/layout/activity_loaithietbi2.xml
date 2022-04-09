@@ -6,15 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgrounddangky"
     android:orientation="vertical"
-    tools:context=".Activity_loaithietbi">
-
-    <Button
-        android:id="@+id/btnadd1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="320dp"
-        android:layout_marginTop="20dp"
-        android:text="Thêm" />
+    tools:context=".Activity.Activity_loaithietbi">
 
     <TextView
         android:id="@+id/textView3"
@@ -29,27 +21,17 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <SearchView
-        android:id="@+id/search1"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="100dp"
-        android:background="#DEE68C"
-        android:iconifiedByDefault="true"
-        android:queryHint="Tìm kiếm" />
-
     <ListView
-        android:id="@+id/list1"
+        android:id="@+id/list2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="230dp" />
+        android:layout_marginTop="170dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="120dp"
         android:gravity="center"
         android:paddingRight="30dp"
         android:text="Mã"
@@ -61,7 +43,7 @@
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="120dp"
         android:gravity="center"
         android:text="Tên loại thiết bị"
         android:textColor="#B51010"

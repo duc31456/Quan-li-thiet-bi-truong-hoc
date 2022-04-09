@@ -1,10 +1,10 @@
-package com.example.quanli_thietbitruonghoc;
+package com.example.quanli_thietbitruonghoc.Activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.quanli_thietbitruonghoc.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +36,8 @@ public class Activity_dangky extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dangky);
+        ActionBar actionBar =getSupportActionBar();
+        actionBar.hide();
 
         btncamera = findViewById(R.id.btncamera);
         btnfolder = findViewById(R.id.btnfolder);
@@ -72,15 +76,22 @@ public class Activity_dangky extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayInputStream);
                 byte[] avatar = byteArrayInputStream.toByteArray();
 
-                if(txttk.getText().toString() != "" || txtmk.getText().toString() != "" || txtsdt.getText().toString() != "") {
+                if(!txttk.getText().toString().trim().equals("") || !txtmk.getText().toString().trim().equals("") || !txtsdt.getText().toString().trim().equals("")) {
                     if (txtmk.getText().toString().equals(txtconfirm.getText().toString())) {
-                        MainActivity.sql.insert_data(txttk.getText().toString().trim(), txtsdt.getText().toString().trim(), txtmk.getText().toString().trim(), avatar);
-                        Toast.makeText(Activity_dangky.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        try {
+                            MainActivity.sql.insert_data(txttk.getText().toString().trim(), txtsdt.getText().toString().trim() , txtmk.getText().toString().trim(), avatar);
+                            MainActivity.selectadmin();
+                            Toast.makeText(Activity_dangky.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }catch (Exception e) {
+                     //       Toast.makeText(Activity_dangky.this, e + "", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Activity_dangky.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else
                     {
-                        Toast.makeText(Activity_dangky.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_dangky.this, "Mật khẩu xác nhận sai!", Toast.LENGTH_SHORT).show();
+
                     }
                 }
                 else

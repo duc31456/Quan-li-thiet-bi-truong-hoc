@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgdangnhap"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="430dp"
+        android:layout_height="500dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="39dp"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="80dp"
         android:orientation="vertical">
 
         <ImageView
@@ -47,16 +47,24 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Mật khẩu:"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textPassword"
             android:minHeight="48dp"
             android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:minHeight="48dp"
+            android:text="Lưu đăng nhập" />
 
         <Button
             android:id="@+id/btndangnhap"
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/custom_btndangnhap"
             android:text="Đăng nhập"
             android:textColor="@color/white"
@@ -71,7 +79,7 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_weight="1"
                 android:gravity="center|top"
                 android:text="Nếu bạn chưa có tài khoản?"
@@ -80,7 +88,7 @@
             <TextView
                 android:id="@+id/btndangky"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_weight="1"
                 android:gravity="center|top"
                 android:selectAllOnFocus="false"

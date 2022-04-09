@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/itemmaphong"
-        android:layout_width="55dp"
+        android:layout_width="60dp"
         android:layout_height="100dp"
         android:layout_weight="0.5"
-        android:gravity="center|left"
-        android:hint="Mã thiết bị"
+        android:gravity="center"
+        android:hint="Mã phòng:"
         android:textColor="#F44336"
         android:textSize="20sp" />
 
@@ -21,18 +21,18 @@
         android:layout_height="100dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:hint="Tên thiết bị"
+        android:hint="Tên phòng"
         android:textColor="#2196F3"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/itemsotang"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_weight="0.5"
-        android:gravity="center|left"
-        android:hint="Xuất xứ:"
-        android:textColor="#67BA3A"
+        android:gravity="center"
+        android:hint="Số tầng:"
+        android:textColor="#6EBD1A"
         android:textSize="20sp" />
 
     <ImageView

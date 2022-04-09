@@ -1,14 +1,16 @@
-package com.example.quanli_thietbitruonghoc;
+package com.example.quanli_thietbitruonghoc.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.quanli_thietbitruonghoc.Activity.Activity_loaithietbi;
+import com.example.quanli_thietbitruonghoc.R;
+import com.example.quanli_thietbitruonghoc.Class.class_loaithietbi;
 
 import java.util.ArrayList;
 
@@ -92,7 +94,7 @@ public class Adapter_loaithietbi extends BaseAdapter {
                 context.nexttothietbi(loaitb.getMaloai(), loaitb.getTenloai());
             }
         });
-
         return view;
     }
+
 }

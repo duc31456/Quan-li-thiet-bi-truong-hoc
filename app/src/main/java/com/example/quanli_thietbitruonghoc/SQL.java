@@ -29,7 +29,7 @@ public class SQL extends SQLiteOpenHelper {
     public void insert_data(String taikhoan, String sdt , String matkhau, byte[] avatar)
     {
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "Insert into LOGIN values (null, ?, ?, ?, ?)";
+        String sql = "Insert into LOGIN_ADMIN values (null,?, ?, ?, ?)";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
 

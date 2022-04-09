@@ -1,4 +1,4 @@
-package com.example.quanli_thietbitruonghoc;
+package com.example.quanli_thietbitruonghoc.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,33 +18,37 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quanli_thietbitruonghoc.Adapter.Adapter_thietbi;
+import com.example.quanli_thietbitruonghoc.R;
+import com.example.quanli_thietbitruonghoc.SQL;
+import com.example.quanli_thietbitruonghoc.Class.class_thietbi;
+
 import java.util.ArrayList;
 
 public class Activity_thietbi extends AppCompatActivity {
     ListView list1;
     TextView titlethietbi;
+
     ArrayList<class_thietbi> thietbi;
     Adapter_thietbi adapter;
 
     String maloai;
-    SQL sql;
+    public static SQL sql;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thietbi);
 
-        overridePendingTransition(R.anim.custom_intentloaithietbi, R.anim.custom_intentthietbi);
-
-
-        list1 = findViewById(R.id.list1);
+        list1 = findViewById(R.id.list2);
         titlethietbi = findViewById(R.id.titlethietbi);
 
-            Bundle bundle = getIntent().getExtras();
-           maloai = bundle.getString("ma_loai");
-           titlethietbi.append("\n"+bundle.getString("ten_loai"));
+         Bundle bundle = getIntent().getExtras();
+           maloai = bundle.getString("ma_loaitb");
+           titlethietbi.append("\n"+bundle.getString("ten_loaitb"));
 
 
         thietbi = new ArrayList<>();
+
         sql = new SQL(Activity_thietbi.this, "Database", null, 1);
         adapter = new Adapter_thietbi(Activity_thietbi.this, R.layout.layout_itemthietbi, thietbi);
         list1.setAdapter(adapter);
@@ -53,6 +57,8 @@ public class Activity_thietbi extends AppCompatActivity {
          //sql.query_data("INSERT INTO THIETBI VALUES ('CS01', 'Đèn điện quang 1.2M', 'Việt Nam', 'CS')");
        // sql.query_data("INSERT INTO THIETBI VALUES ('CS03', 'Đèn điện quang 0.6M', 'Việt Nam', 'CS')");
         select_thietbi();
+
+
     }
 
     //lấy loại thiết bị
@@ -96,37 +102,39 @@ public class Activity_thietbi extends AppCompatActivity {
     }
 
     //chỉnh sửa thiết bị
-   /* public void edit_thietbi(String matb, String tentb, String xuatxu)
+    public void edit_thietbi(String matb, String tentb, String xuatxu)
     {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_editloaithietbi);
+        dialog.setContentView(R.layout.edit_thietbi);
         dialog.show();
 
-        EditText editmaloai = dialog.findViewById(R.id.editmaloai);
-        EditText edittenloai = dialog.findViewById(R.id.edittenloai);
-        Button buttonedit = dialog.findViewById(R.id.buttonedit);
-        Button buttonexit = dialog.findViewById(R.id.buttonexit);
-        TextView title = dialog.findViewById(R.id.titleedit);
+        EditText editmatb = dialog.findViewById(R.id.editmaphong);
+        EditText edittentb = dialog.findViewById(R.id.edittenphong);
+        EditText editxuatxu = dialog.findViewById(R.id.editsotang);
+        Button buttonedit = dialog.findViewById(R.id.buttonedit3);
+        Button buttonexit = dialog.findViewById(R.id.buttonexit3);
 
-        editmaloai.setEnabled(false);
-        title.setText("Chỉnh sửa");
-        buttonedit.setText("Sửa");
 
-        editmaloai.setText(maloai);
-        edittenloai.setText(tenloai);
+        editmatb.setEnabled(false);
+
+        editmatb.setText(matb);
+        edittentb.setText(tentb);
+        editxuatxu.setText(xuatxu);
 
         buttonedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(!edittenloai.getText().toString().trim().equals("")) {
-                    sql.query_data("UPDATE LOAITHIETBI SET TENLOAI = '" + edittenloai.getText().toString() + "' WHERE MALOAI = '" + editmaloai.getText().toString() + "'");
-                    select_loaithietbi();
+                if(!edittentb.getText().toString().trim().equals("") || !editxuatxu.getText().toString().trim().equals("")) {
+                    sql.query_data("UPDATE THIETBI SET TENTB = '" + edittentb.getText().toString() +
+                            "', XUATXU = '" + editxuatxu.getText().toString() +
+                            "' WHERE MATB = '" + editmatb.getText().toString() + "'");
+                    select_thietbi();
                     dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(Activity_loaithietbi.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_thietbi.this, "Không được để trống", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -139,7 +147,7 @@ public class Activity_thietbi extends AppCompatActivity {
         });
 
     }
-*/
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,7 +180,58 @@ public class Activity_thietbi extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.btnthongtin)
         {
+            Intent intent = new Intent(Activity_thietbi.this, Thongtincanhan.class);
+            startActivity(intent);
+        }
+        if(item.getItemId() == R.id.btnadd)
+        {
+            Dialog dialog = new Dialog(Activity_thietbi.this);
+            dialog.setContentView(R.layout.dialog_themthietbi);
+            dialog.show();
 
+
+            EditText addtentb = dialog.findViewById(R.id.addtentb);
+            EditText addxuatxu = dialog.findViewById(R.id.addxuatxu);
+            Button btnaddtb = dialog.findViewById(R.id.btnaddtb);
+            Button btnexit = dialog.findViewById(R.id.btnexit);
+            TextView addma1 = dialog.findViewById(R.id.addma1);
+            EditText addma2 = dialog.findViewById(R.id.addma2);
+
+            addma1.setText(maloai);
+            addma1.setEnabled(false);
+            btnaddtb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!addtentb.getText().toString().trim().equals("") ||
+                            !addxuatxu.getText().toString().trim().equals("") ||
+                            !addma2.getText().toString().trim().equals("")) {
+
+                        try {
+                            String temp = addma1.getText().toString().trim() + addma2.getText().toString().trim();
+                            sql.query_data("INSERT INTO THIETBI VALUES ('" + temp +
+                                    "', '" + addtentb.getText().toString().trim() +
+                                    "', '" +addxuatxu.getText().toString().trim() +
+                                    "', '" +maloai +"')");
+                            select_thietbi();
+                            dialog.dismiss();
+                        }catch (Exception e) {
+                            Toast.makeText(Activity_thietbi.this, "Trùng mã thiết bị!!\n Vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else
+                    {
+                        Toast.makeText(Activity_thietbi.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            btnexit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);

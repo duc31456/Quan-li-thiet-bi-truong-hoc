@@ -1,4 +1,4 @@
-package com.example.quanli_thietbitruonghoc;
+package com.example.quanli_thietbitruonghoc.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,80 +12,40 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quanli_thietbitruonghoc.Adapter.Adapter_loaithietbi;
+import com.example.quanli_thietbitruonghoc.R;
+import com.example.quanli_thietbitruonghoc.SQL;
+import com.example.quanli_thietbitruonghoc.Class.class_loaithietbi;
+
 import java.util.ArrayList;
 
 public class Activity_loaithietbi extends AppCompatActivity {
 
-    Adapter_loaithietbi adapter;
+    public Adapter_loaithietbi adapter;
     ArrayList<class_loaithietbi> loaithietbi;
     ListView list;
     SQL sql;
-    Button btnadd1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loaithietbi2);
 
-        list = findViewById(R.id.list1);
-        btnadd1 = findViewById(R.id.btnadd1);
 
+        list = findViewById(R.id.list2);
         loaithietbi = new ArrayList<>();
         sql = new SQL(Activity_loaithietbi.this, "Database", null, 1);
         adapter = new Adapter_loaithietbi(Activity_loaithietbi.this, R.layout.layout_itemloaithietbi, loaithietbi);
         list.setAdapter(adapter);
-
         sql.query_data("CREATE TABLE IF NOT EXISTS LOAITHIETBI(MALOAI varchar(20) PRIMARY KEY, TENLOAI NVARCHAR(50))");
        // sql.query_data("INSERT INTO LOAITHIETBI VALUES ('DH', 'Điều hòa')");
         select_loaithietbi();
-
-        btnadd1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(Activity_loaithietbi.this);
-                dialog.setContentView(R.layout.dialog_editloaithietbi);
-                dialog.show();
-
-                EditText editmaloai = dialog.findViewById(R.id.editmaloai);
-                EditText edittenloai = dialog.findViewById(R.id.edittenloai);
-                Button buttonedit = dialog.findViewById(R.id.buttonedit);
-                Button buttonexit = dialog.findViewById(R.id.buttonexit);
-                TextView title = dialog.findViewById(R.id.titleedit);
-
-                title.setText("Thêm loại thiết bị");
-                buttonedit.setText("Thêm");
-
-                buttonedit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        if (!edittenloai.getText().toString().trim().equals("") && !editmaloai.getText().toString().trim().equals("")) {
-
-                            try {
-                                sql.query_data("INSERT INTO LOAITHIETBI VALUES ('" + editmaloai.getText().toString().trim() +
-                                        "', '" + edittenloai.getText().toString().trim() + "')");
-                                select_loaithietbi();
-                                dialog.dismiss();
-                            }catch (Exception e) {
-                                Toast.makeText(Activity_loaithietbi.this, "Trùng mã loại!!\n Vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                        else
-                        {
-                            Toast.makeText(Activity_loaithietbi.this, "Không được để trống", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            }
-        });
 
     }
 
@@ -177,13 +137,15 @@ public class Activity_loaithietbi extends AppCompatActivity {
     public void nexttothietbi(String maloai, String tenloai)
     {
         Intent intent = new Intent(this, Activity_thietbi.class);
-        overridePendingTransition(R.anim.custom_intentloaithietbi, R.anim.custom_intentthietbi);
 
+        this.overridePendingTransition(R.anim.custom_intentthietbi, R.anim.custom_intentloaithietbi);
         Bundle bundle = new Bundle();
-        bundle.putString("ma_loai", maloai);
-        bundle.putString("ten_loai", tenloai);
+        bundle.putString("ma_loaitb", maloai);
+        bundle.putString("ten_loaitb", tenloai);
+        Toast.makeText(this, maloai + tenloai, Toast.LENGTH_SHORT).show();
         intent.putExtras(bundle);
         startActivity(intent);
+
     }
 
     @Override
@@ -218,8 +180,60 @@ public class Activity_loaithietbi extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.btnthongtin)
         {
-            
+            Intent intent = new Intent(Activity_loaithietbi.this, Thongtincanhan.class);
+            startActivity(intent);
         }
+        if(item.getItemId() == R.id.search)
+        {
+
+        }
+        if (item.getItemId() == R.id.btnadd)
+        {
+            Dialog dialog = new Dialog(Activity_loaithietbi.this);
+            dialog.setContentView(R.layout.dialog_editloaithietbi);
+            dialog.show();
+
+            EditText editmaloai = dialog.findViewById(R.id.editmaloai);
+            EditText edittenloai = dialog.findViewById(R.id.edittenloai);
+            Button buttonedit = dialog.findViewById(R.id.buttonedit);
+            Button buttonexit = dialog.findViewById(R.id.buttonexit);
+            TextView title = dialog.findViewById(R.id.titleedit);
+
+            title.setText("Thêm loại thiết bị");
+            buttonedit.setText("Thêm");
+
+            buttonedit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!edittenloai.getText().toString().trim().equals("") || !editmaloai.getText().toString().trim().equals("")) {
+
+                        try {
+                            sql.query_data("INSERT INTO LOAITHIETBI VALUES ('" + editmaloai.getText().toString().trim() +
+                                    "', '" + edittenloai.getText().toString().trim() + "')");
+                            select_loaithietbi();
+                            dialog.dismiss();
+                        }catch (Exception e) {
+                            Toast.makeText(Activity_loaithietbi.this, "Trùng mã loại!!\n Vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else
+                    {
+                        Toast.makeText(Activity_loaithietbi.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            buttonexit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+
+}
 
         return super.onOptionsItemSelected(item);
     }
