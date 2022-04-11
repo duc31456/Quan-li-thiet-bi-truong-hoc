@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +41,7 @@ public class Activity_loaithietbi extends AppCompatActivity {
         setContentView(R.layout.activity_loaithietbi2);
 
 
-        list = findViewById(R.id.list2);
+        list = findViewById(R.id.listtinhtrang);
         loaithietbi = new ArrayList<>();
         sql = new SQL(Activity_loaithietbi.this, "Database", null, 1);
         adapter = new Adapter_loaithietbi(Activity_loaithietbi.this, R.layout.layout_itemloaithietbi, loaithietbi);
@@ -151,6 +154,22 @@ public class Activity_loaithietbi extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.thongtin_canhan, menu);
+        //tìm kiếm
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -182,10 +201,6 @@ public class Activity_loaithietbi extends AppCompatActivity {
         {
             Intent intent = new Intent(Activity_loaithietbi.this, Thongtincanhan.class);
             startActivity(intent);
-        }
-        if(item.getItemId() == R.id.search)
-        {
-
         }
         if (item.getItemId() == R.id.btnadd)
         {

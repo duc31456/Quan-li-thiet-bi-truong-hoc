@@ -39,14 +39,14 @@ public class Activity_dangky extends AppCompatActivity {
         ActionBar actionBar =getSupportActionBar();
         actionBar.hide();
 
-        btncamera = findViewById(R.id.btncamera);
-        btnfolder = findViewById(R.id.btnfolder);
-        btndangky2 = findViewById(R.id.btndangky2);
-        txtsdt = findViewById(R.id.btnsdt);
-        txttk = findViewById(R.id.btntk);
-        txtmk = findViewById(R.id.btnmk);
-        txtconfirm = findViewById(R.id.btnconfirm);
-        image = findViewById(R.id.image);
+        btncamera = findViewById(R.id.camera);
+        btnfolder = findViewById(R.id.folder);
+        btndangky2 = findViewById(R.id.nutthaydoi);
+        txtsdt = findViewById(R.id.thaydoisdt);
+        txttk = findViewById(R.id.thaydoitk);
+        txtmk = findViewById(R.id.thaydoimk);
+        txtconfirm = findViewById(R.id.xacnhanmk);
+        image = findViewById(R.id.thaydoiimage);
 
         //animation
         animation();

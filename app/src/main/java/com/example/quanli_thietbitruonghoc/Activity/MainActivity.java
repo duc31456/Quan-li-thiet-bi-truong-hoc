@@ -24,6 +24,7 @@ import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 import com.example.quanli_thietbitruonghoc.Class.class_admin;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 
@@ -38,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
     public static SQL sql;
     public static ArrayList<class_admin> admin;
 
-    String username = "";
-    String password = "";
+    public static String username = "";
+    public static String password = "";
+    public static String sdt ="";
+    public static byte[] hinhanh;
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                     {
                         username = editname.getText().toString().trim();
                         password = editpass.getText().toString().trim();
+                        sdt = admin.get(i).getSdt();
+                        hinhanh = admin.get(i).getAvatar();
                         if(cb.isChecked())
                         {
                             //truyền giá trị vào share để lưu đăng nhập

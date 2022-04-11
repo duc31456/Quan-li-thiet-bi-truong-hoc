@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="360dp"
+    android:layout_height="550dp"
     android:orientation="vertical"
     android:weightSum="5">
 
@@ -10,8 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="#1E88E5"
         android:gravity="center"
-        android:text="Thêm thiết bị"
+        android:text="Thêm thiết bị lỗi"
+        android:textColor="#FDD835"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -20,36 +22,30 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/textView16"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center|left"
             android:text="Mã thiết bị:"
+            android:textColor="#00897B"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/addma1"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinnermatb"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|left"
-            android:hint="Mã:"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/addma2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Nhập:"
-            android:inputType="number"
-            android:textSize="20sp" />
+            android:backgroundTint="@color/black"
+            android:backgroundTintMode="add"
+            android:contentDescription="Mã thiết bị"
+            android:minHeight="48dp"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -64,49 +60,54 @@
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center|left"
             android:text="Tên thiết bị:"
+            android:textColor="#43A047"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/addtentb"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/spinnertentb"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="Tên thiết bị:"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:background="@color/white"
+            android:gravity="center|left"
+            android:text="TextView"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center|left"
-            android:text="Xuất xứ:"
+            android:text="Tình trạng:"
+            android:textColor="#689F38"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/addxuatxu"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinnertinhtrang"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="Xuất xứ:"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:backgroundTint="@color/black"
+            android:contentDescription="Tình trạng:"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -121,6 +122,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Thêm"
+            android:textColor="#CF0F0F"
             android:textStyle="bold" />
 
         <Button
@@ -129,6 +131,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Thoát"
+            android:textColor="#5E35B1"
             android:textStyle="bold" />
     </LinearLayout>
 

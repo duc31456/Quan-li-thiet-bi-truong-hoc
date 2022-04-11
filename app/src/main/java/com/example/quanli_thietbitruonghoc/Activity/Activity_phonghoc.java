@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +40,7 @@ public class Activity_phonghoc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonghoc);
 
-        listphonghoc = findViewById(R.id.list2);
+        listphonghoc = findViewById(R.id.listtinhtrang);
 
         phonghoc = new ArrayList<>();
 
@@ -142,6 +145,23 @@ public class Activity_phonghoc extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.thongtin_canhan, menu);
+
+        //tìm kiếm
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 

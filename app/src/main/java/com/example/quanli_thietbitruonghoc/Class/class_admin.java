@@ -1,6 +1,8 @@
 package com.example.quanli_thietbitruonghoc.Class;
 
-public class class_admin {
+import java.io.Serializable;
+
+public class class_admin implements Serializable {
     private Integer id;
     private String taikhoan;
     private String sdt;

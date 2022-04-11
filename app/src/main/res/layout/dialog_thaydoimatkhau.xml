@@ -2,16 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/backgrounddangky"
-    android:orientation="vertical"
-    android:weightSum="3"
-    tools:context=".Activity.Activity_dangky">
+    android:layout_width="350dp"
+    android:layout_height="650dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_weight="1"
         android:orientation="vertical"
         android:weightSum="3">
@@ -19,19 +16,18 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="0.3"
-            android:gravity="bottom|left"
-            android:text="Chọn 1 tấm hình avatar:"
+            android:gravity="center"
+            android:text="Thay đổi thông tin"
             android:textColor="@color/design_default_color_error"
             android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/thaydoiimage"
             android:layout_width="match_parent"
-            android:layout_height="126dp"
-            android:layout_weight="2.5"
-            app:srcCompat="@drawable/img_1" />
+            android:layout_height="130dp"
+            android:layout_weight="2.5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +39,7 @@
 
             <Button
                 android:id="@+id/camera"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/custom_camera"
@@ -53,7 +49,7 @@
 
             <Button
                 android:id="@+id/folder"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/custom_thuvienanh"
@@ -65,7 +61,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_weight="2"
         android:orientation="vertical"
         android:weightSum="5">
@@ -73,11 +69,11 @@
         <EditText
             android:id="@+id/thaydoisdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Nhập sdt:"
-            android:inputType="number"
+            android:inputType="number|text"
             android:textColorHint="#546E7A"
             android:textStyle="bold" />
 
@@ -85,7 +81,7 @@
 
             android:id="@+id/thaydoitk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Nhập tài khoản:"
@@ -97,7 +93,7 @@
 
             android:id="@+id/thaydoimk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Nhập password:"
@@ -109,7 +105,7 @@
 
             android:id="@+id/xacnhanmk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Xác nhận password:"
@@ -121,13 +117,14 @@
             android:id="@+id/nutthaydoi"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="125dp"
             android:layout_weight="1"
             android:background="@drawable/custom_btndangnhap"
-            android:text="đăng ký"
+            android:text="Thay đổi"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
+
 </LinearLayout>

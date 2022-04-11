@@ -25,7 +25,7 @@ public class SQL extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery(sql, null);
     }
 
-    //insert có image(trường hợp phức tạp)
+    //insert có image
     public void insert_data(String taikhoan, String sdt , String matkhau, byte[] avatar)
     {
         SQLiteDatabase database = getWritableDatabase();
@@ -37,6 +37,22 @@ public class SQL extends SQLiteOpenHelper {
         statement.bindString(2, sdt);
         statement.bindString(3, matkhau);
         statement.bindBlob(4, avatar);
+
+        statement.executeInsert();
+    }
+
+    //update có image
+    public void update_data( String sdt , String matkhau, byte[] avatar, String taikhoan)
+    {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "Update LOGIN_ADMIN set SDT = ?, MATKHAU = ?, AVATAR = ? where TAIKHOAN = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+
+        statement.bindString(1, sdt);
+        statement.bindString(2, matkhau);
+        statement.bindBlob(3, avatar);
+        statement.bindString(4, taikhoan);
 
         statement.executeInsert();
     }

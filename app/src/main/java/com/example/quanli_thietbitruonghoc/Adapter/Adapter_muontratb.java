@@ -5,24 +5,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.quanli_thietbitruonghoc.Activity.Activity_chitietsudung;
 import com.example.quanli_thietbitruonghoc.Class.class_muontratb;
+import com.example.quanli_thietbitruonghoc.Class.class_phonghoc;
 import com.example.quanli_thietbitruonghoc.R;
 
 import java.util.ArrayList;
 
-public class Adapter_muontratb extends BaseAdapter {
+public class Adapter_muontratb extends BaseAdapter implements Filterable {
     private Activity_chitietsudung context;
     private int layout;
-    ArrayList<class_muontratb> muontratb;
+    ArrayList<class_muontratb> muontratb, muontratbsearch;
 
     public Adapter_muontratb(Activity_chitietsudung context, int layout, ArrayList<class_muontratb> muontratb) {
         this.context = context;
         this.layout = layout;
         this.muontratb = muontratb;
+        this.muontratbsearch = muontratb;
     }
 
     @Override
@@ -38,6 +42,46 @@ public class Adapter_muontratb extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String srsearch = charSequence.toString();
+                if(srsearch.isEmpty())
+                {
+                    muontratb = muontratbsearch;
+                }
+                else
+                {
+                    ArrayList<class_muontratb> list = new ArrayList<>();
+                    for (class_muontratb tempitem: muontratbsearch)
+                    {
+                        if (tempitem.getMatb().toLowerCase().contains(srsearch.toLowerCase())
+                                ||tempitem.getMaphong().toLowerCase().contains(srsearch.toLowerCase())
+                                ||tempitem.getNgaymuon().toLowerCase().contains(srsearch.toLowerCase())
+                                ||tempitem.getNgaytra().toLowerCase().contains(srsearch.toLowerCase())
+                                ||tempitem.getNguoimuon().toLowerCase().contains(srsearch.toLowerCase())
+                                ||tempitem.getSdtnguoimuon().toLowerCase().contains(srsearch.toLowerCase()))
+                        {
+                            list.add(tempitem);
+                        }
+                    }
+                    muontratb = list;
+                }
+                FilterResults results =  new FilterResults();
+                results.values = muontratb;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                muontratb = (ArrayList<class_muontratb>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -214,9 +217,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
                         cal.set(Calendar.MONTH, mon-1);
                         year = (year<1900)?1900:(year>2100)?2100:year;
                         cal.set(Calendar.YEAR, year);
-                        // ^ first set year for the line below to work correctly
-                        //with leap years - otherwise, date e.g. 29/02/2012
-                        //would be automatically corrected to 28/02/2012
 
                         day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
                         clean = String.format("%02d%02d%02d",day, mon, year);
@@ -264,8 +264,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
                     if (clean.length() < 8){
                         clean = clean + ddmmyyyy.substring(clean.length());
                     }else{
-                        //This part makes sure that when we finish entering numbers
-                        //the date is correct, fixing it otherwise
                         int day  = Integer.parseInt(clean.substring(0,2));
                         int mon  = Integer.parseInt(clean.substring(2,4));
                         int year = Integer.parseInt(clean.substring(4,8));
@@ -274,9 +272,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
                         cal.set(Calendar.MONTH, mon-1);
                         year = (year<1900)?1900:(year>2100)?2100:year;
                         cal.set(Calendar.YEAR, year);
-                        // ^ first set year for the line below to work correctly
-                        //with leap years - otherwise, date e.g. 29/02/2012
-                        //would be automatically corrected to 28/02/2012
 
                         day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
                         clean = String.format("%02d%02d%02d",day, mon, year);
@@ -300,8 +295,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
 
     }
 
-
-
     public void load_matb()
     {
         array_matb = new ArrayList<>();
@@ -310,6 +303,12 @@ public class Activity_chitietsudung extends AppCompatActivity {
         while(cursor.moveToNext()) {
             String matb = cursor.getString(0);
             array_matb.add(matb);
+        }
+        Cursor delete_cursor = Activity_baoloithietbi.sql.select_data("select MATB from TINHTRANG where TRANGTHAI = 'Đang sữa chữa'" +
+                "or TRANGTHAI = 'Báo hỏng'");
+        while(delete_cursor.moveToNext()) {
+            String deletematb = delete_cursor.getString(0);
+            array_matb.remove(deletematb);
         }
        spinner_matb = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_matb);
         add_matb.setAdapter(spinner_matb);
@@ -320,6 +319,7 @@ public class Activity_chitietsudung extends AppCompatActivity {
         array_maphong = new ArrayList<>();
         Cursor cursor = Activity_phonghoc.sql.select_data("select * from PHONGHOC");
         array_maphong.clear();
+
         while(cursor.moveToNext()) {
             String maphong = cursor.getString(0);
             array_maphong.add(maphong);
@@ -330,6 +330,23 @@ public class Activity_chitietsudung extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.thongtin_canhan, menu);
+
+        //tìm kiếm
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/itemmatb"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="Mã thiết bị:"
+        android:textColor="#F44336"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/itemtentb"
+        android:layout_width="170dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="Tên thiết bị"
+        android:textColor="#2196F3"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/itemtinhtrang"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="Tình trạng:"
+        android:textColor="#6EBD1A"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/deletetinhtrang"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageView
+        android:id="@+id/edittinhtrang"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:drawable/ic_menu_send" />
+</LinearLayout>

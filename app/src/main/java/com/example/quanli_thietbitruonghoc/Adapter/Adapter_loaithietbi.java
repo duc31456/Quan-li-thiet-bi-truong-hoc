@@ -5,25 +5,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.quanli_thietbitruonghoc.Activity.Activity_loaithietbi;
+import com.example.quanli_thietbitruonghoc.Class.class_thietbi;
 import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.Class.class_loaithietbi;
 
 import java.util.ArrayList;
 
-public class Adapter_loaithietbi extends BaseAdapter {
+public class Adapter_loaithietbi extends BaseAdapter implements Filterable {
 
     private Activity_loaithietbi context;
     private int layout;
     ArrayList<class_loaithietbi> loai_thietbi;
+    ArrayList<class_loaithietbi> loai_thietbisearch;
 
     public Adapter_loaithietbi(Activity_loaithietbi context, int layout, ArrayList<class_loaithietbi> loai_thietbi) {
         this.context = context;
         this.layout = layout;
         this.loai_thietbi = loai_thietbi;
+        this.loai_thietbisearch = loai_thietbi;
     }
 
     @Override
@@ -39,6 +44,42 @@ public class Adapter_loaithietbi extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String srsearch = charSequence.toString();
+                if(srsearch.isEmpty())
+                {
+                    loai_thietbi = loai_thietbisearch;
+                }
+                else
+                {
+                    ArrayList<class_loaithietbi> list = new ArrayList<>();
+                    for (class_loaithietbi tempitem: loai_thietbisearch)
+                    {
+                        if (tempitem.getMaloai().toLowerCase().contains(srsearch.toLowerCase())
+                        ||tempitem.getTenloai().toLowerCase().contains(srsearch.toLowerCase()))
+                        {
+                            list.add(tempitem);
+                        }
+                    }
+                    loai_thietbi = list;
+                }
+                FilterResults results =  new FilterResults();
+                results.values = loai_thietbi;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                loai_thietbi = (ArrayList<class_loaithietbi>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     private class View_holer

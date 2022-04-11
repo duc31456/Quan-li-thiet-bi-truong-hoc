@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +42,7 @@ public class Activity_thietbi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thietbi);
 
-        list1 = findViewById(R.id.list2);
+        list1 = findViewById(R.id.listtinhtrang);
         titlethietbi = findViewById(R.id.titlethietbi);
 
          Bundle bundle = getIntent().getExtras();
@@ -51,6 +54,7 @@ public class Activity_thietbi extends AppCompatActivity {
 
         sql = new SQL(Activity_thietbi.this, "Database", null, 1);
         adapter = new Adapter_thietbi(Activity_thietbi.this, R.layout.layout_itemthietbi, thietbi);
+
         list1.setAdapter(adapter);
 
         sql.query_data("CREATE TABLE IF NOT EXISTS THIETBI(MATB varchar(20) PRIMARY KEY, TENTB NVARCHAR(50), XUATXU nvarchar(20), MALOAI VARCHAR(20))");
@@ -148,10 +152,25 @@ public class Activity_thietbi extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.thongtin_canhan, menu);
+        //tìm kiếm
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                   adapter.getFilter().filter(s);
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    adapter.getFilter().filter(s);
+                    return false;
+                }
+            });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -183,6 +202,7 @@ public class Activity_thietbi extends AppCompatActivity {
             Intent intent = new Intent(Activity_thietbi.this, Thongtincanhan.class);
             startActivity(intent);
         }
+
         if(item.getItemId() == R.id.btnadd)
         {
             Dialog dialog = new Dialog(Activity_thietbi.this);
@@ -192,8 +212,8 @@ public class Activity_thietbi extends AppCompatActivity {
 
             EditText addtentb = dialog.findViewById(R.id.addtentb);
             EditText addxuatxu = dialog.findViewById(R.id.addxuatxu);
-            Button btnaddtb = dialog.findViewById(R.id.btnaddtb);
-            Button btnexit = dialog.findViewById(R.id.btnexit);
+            Button btnaddtb = dialog.findViewById(R.id.addtinhtrangtb);
+            Button btnexit = dialog.findViewById(R.id.exittinhtrangtb);
             TextView addma1 = dialog.findViewById(R.id.addma1);
             EditText addma2 = dialog.findViewById(R.id.addma2);
 

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgrounddangky"
+    android:background="@drawable/img_2"
     tools:context=".Activity.Activity_thietbi">
 
     <ListView
-        android:id="@+id/list2"
+        android:id="@+id/listtinhtrang"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="160dp" />

@@ -18,22 +18,19 @@ import com.example.quanli_thietbitruonghoc.R;
 
 public class Trang_chu extends AppCompatActivity {
 
-    Button btnthongtin, btnthietbi, btnphonghoc, btnmuon_tra, btnthongke, btnbaoloitb;
-    TextView btngopy;
+    Button btnthongtin, btnthietbi, btnphonghoc, btnmuon_tra, btnbaoloitb, btngopy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu);
-
 
         btnthongtin = findViewById(R.id.btn1);
         btnthietbi = findViewById(R.id.btn2);
         btnphonghoc = findViewById(R.id.btn3);
         btnmuon_tra = findViewById(R.id.btn4);
         btnbaoloitb = findViewById(R.id.btn5);
-        btnthongke = findViewById(R.id.btn6);
-        btngopy = findViewById(R.id.btn7);
-        btngopy.setPaintFlags(btngopy.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        btngopy = findViewById(R.id.btn6);
         ActionBar actionBar =getSupportActionBar();
         actionBar.hide();
         //animation
@@ -79,13 +76,6 @@ public class Trang_chu extends AppCompatActivity {
             }
         });
 
-        btnthongke.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Trang_chu.this, Thong_ke.class);
-                startActivity(intent);
-            }
-        });
         btnbaoloitb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,14 +92,14 @@ public class Trang_chu extends AppCompatActivity {
         Animation animation_baoloitb = AnimationUtils.loadAnimation(this, R.anim.custom_trangchuleft);
         Animation animation_thietbi = AnimationUtils.loadAnimation(this, R.anim.custom_trangchuright);
         Animation animation_muontra = AnimationUtils.loadAnimation(this, R.anim.custom_trangchuright);
-        Animation animation_thongke = AnimationUtils.loadAnimation(this, R.anim.custom_trangchuright);
+        Animation animation_gopy = AnimationUtils.loadAnimation(this, R.anim.custom_trangchuright);
 
         btnthongtin.startAnimation(animation_thongtin);
         btnphonghoc.startAnimation(animation_phonghoc);
         btnthietbi.startAnimation(animation_thietbi);
         btnmuon_tra.startAnimation(animation_muontra);
         btnbaoloitb.startAnimation(animation_baoloitb);
-        btnthongke.startAnimation(animation_thongke);
+        btngopy.startAnimation(animation_gopy);
     }
 
     private void sendEmail() {
@@ -127,10 +117,14 @@ public class Trang_chu extends AppCompatActivity {
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Gửi mail..."));
-            finish();
+            return;
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(Trang_chu.this,
                     "Lỗi mail!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

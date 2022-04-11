@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,16 +15,19 @@ import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.Class.class_thietbi;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class Adapter_thietbi extends BaseAdapter {
+public class Adapter_thietbi extends BaseAdapter implements Filterable {
     private Activity_thietbi context;
     private int layout;
     ArrayList<class_thietbi> thietbi;
+    ArrayList<class_thietbi> thietbisearch;
 
     public Adapter_thietbi(Activity_thietbi context, int layout, ArrayList<class_thietbi> thietbi) {
         this.context = context;
         this.layout = layout;
         this.thietbi = thietbi;
+        this.thietbisearch = thietbi;
     }
 
     @Override
@@ -38,6 +43,43 @@ public class Adapter_thietbi extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    //tìm kiếm
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+               String srsearch = charSequence.toString();
+               if(srsearch.isEmpty())
+               {
+                   thietbi = thietbisearch;
+               }
+               else
+               {
+                   ArrayList<class_thietbi> list = new ArrayList<>();
+                   for (class_thietbi tempitem: thietbisearch)
+                   {
+                        if (tempitem.getMatb().toLowerCase().contains(srsearch.toLowerCase())
+                        || tempitem.getTentb().toLowerCase().contains(srsearch.toLowerCase())
+                        || tempitem.getXuatxu().toLowerCase().contains(srsearch.toLowerCase()))
+                        {
+                            list.add(tempitem);
+                        }
+                   }
+                   thietbi = list;
+               }
+               FilterResults results =  new FilterResults();
+               results.values = thietbi;
+                return results;
+            }
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                thietbi = (ArrayList<class_thietbi>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     private class View_holer
