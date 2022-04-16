@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -31,8 +33,10 @@ import com.example.quanli_thietbitruonghoc.Class.class_muontratb;
 import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class Activity_chitietsudung extends AppCompatActivity {
     SQL sql;
@@ -86,15 +90,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
             Integer soluong = cursor.getInt(5);
             String ngaytra = cursor.getString(6);
             muontratb.add(new class_muontratb(matb, maphong, nguoimuon, sdt, ngaymuon, soluong, ngaytra));
-       /*     Toast.makeText(this, matb +"\n"
-                    + maphong + "\n"
-                    +nguoimuon +"\n"
-                    + sdt +"\n"
-                    + ngaymuon +"\n"
-                    + soluong +"\n"
-                    + ngaytra, Toast.LENGTH_LONG).show();
-
-        */
             adapter.notifyDataSetChanged();
         }
     }
@@ -149,6 +144,53 @@ public class Activity_chitietsudung extends AppCompatActivity {
         edit_soluong.setText(String.valueOf(soluong));
         edit_ngaytra.setText(ngaytra);
 
+        SimpleDateFormat dateFormat3,dateFormat4;
+        dateFormat3 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        dateFormat4 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        Calendar calendar3 = Calendar.getInstance();
+        Calendar calendar4 = Calendar.getInstance();
+
+        DatePickerDialog.OnDateSetListener date_editngaymuon = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                calendar3.set(Calendar.YEAR, year);
+                calendar3.set(Calendar.MONTH,month);
+                calendar3.set(Calendar.DAY_OF_MONTH,day);
+                edit_ngaymuon.setText(dateFormat3.format(calendar3.getTime()));
+            }
+        };
+        DatePickerDialog.OnDateSetListener date_editngaytra = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                calendar4.set(Calendar.YEAR, year);
+                calendar4.set(Calendar.MONTH,month);
+                calendar4.set(Calendar.DAY_OF_MONTH,day);
+                if (dateFormat4.format(calendar4.getTime()).compareTo(dateFormat3.format(calendar3.getTime())) < 0) {
+                    Toast.makeText(dialog.getContext(), "Ngày trả không thể nhỏ hơn ngày mượn!\n Bạn vui lòng chọn lại ngày^^", Toast.LENGTH_SHORT).show();
+                    edit_ngaytra.setText("");
+                }
+                else
+                {
+                    edit_ngaytra.setText(dateFormat4.format(calendar4.getTime()));
+                }
+            }
+        };
+        edit_ngaymuon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(dialog.getContext(),date_editngaymuon,calendar3.get(Calendar.YEAR),
+                        calendar3.get(Calendar.MONTH),calendar3.get(Calendar.DAY_OF_MONTH)).show();
+                edit_ngaytra.setText("");
+            }
+        });
+        edit_ngaytra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(dialog.getContext(),date_editngaytra,calendar4.get(Calendar.YEAR),
+                        calendar4.get(Calendar.MONTH),calendar4.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
         edit_muontra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,117 +224,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        // Định dạng lại ngày mượn và ngày trả nhập vào theo dang dd/mm/yyyy
-        edit_ngaymuon.addTextChangedListener(new TextWatcher() {
-            private String current = "";
-            private String ddmmyyyy = "DDMMYYYY";
-            private Calendar cal = Calendar.getInstance();
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().equals(current)) {
-                    String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
-                    String cleanC = current.replaceAll("[^\\d.]|\\.", "");
-
-                    int cl = clean.length();
-                    int sel = cl;
-                    for (int i = 2; i <= cl && i < 6; i += 2) {
-                        sel++;
-                    }
-                    //Fix for pressing delete next to a forward slash
-                    if (clean.equals(cleanC)) sel--;
-
-                    if (clean.length() < 8){
-                        clean = clean + ddmmyyyy.substring(clean.length());
-                    }else{
-                        //This part makes sure that when we finish entering numbers
-                        //the date is correct, fixing it otherwise
-                        int day  = Integer.parseInt(clean.substring(0,2));
-                        int mon  = Integer.parseInt(clean.substring(2,4));
-                        int year = Integer.parseInt(clean.substring(4,8));
-
-                        mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
-                        cal.set(Calendar.MONTH, mon-1);
-                        year = (year<1900)?1900:(year>2100)?2100:year;
-                        cal.set(Calendar.YEAR, year);
-
-                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                        clean = String.format("%02d%02d%02d",day, mon, year);
-                    }
-
-                    clean = String.format("%s/%s/%s", clean.substring(0, 2),
-                            clean.substring(2, 4),
-                            clean.substring(4, 8));
-
-                    sel = sel < 0 ? 0 : sel;
-                    current = clean;
-                    edit_ngaymuon.setText(current);
-                    edit_ngaymuon.setSelection(sel < current.length() ? sel : current.length());
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        edit_ngaytra.addTextChangedListener(new TextWatcher() {
-            private String current = "";
-            private String ddmmyyyy = "DDMMYYYY";
-            private Calendar cal = Calendar.getInstance();
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().equals(current)) {
-                    String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
-                    String cleanC = current.replaceAll("[^\\d.]|\\.", "");
-
-                    int cl = clean.length();
-                    int sel = cl;
-                    for (int i = 2; i <= cl && i < 6; i += 2) {
-                        sel++;
-                    }
-                    //Fix for pressing delete next to a forward slash
-                    if (clean.equals(cleanC)) sel--;
-
-                    if (clean.length() < 8){
-                        clean = clean + ddmmyyyy.substring(clean.length());
-                    }else{
-                        int day  = Integer.parseInt(clean.substring(0,2));
-                        int mon  = Integer.parseInt(clean.substring(2,4));
-                        int year = Integer.parseInt(clean.substring(4,8));
-
-                        mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
-                        cal.set(Calendar.MONTH, mon-1);
-                        year = (year<1900)?1900:(year>2100)?2100:year;
-                        cal.set(Calendar.YEAR, year);
-
-                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                        clean = String.format("%02d%02d%02d",day, mon, year);
-                    }
-
-                    clean = String.format("%s/%s/%s", clean.substring(0, 2),
-                            clean.substring(2, 4),
-                            clean.substring(4, 8));
-
-                    sel = sel < 0 ? 0 : sel;
-                    current = clean;
-                    edit_ngaytra.setText(current);
-                    edit_ngaytra.setSelection(sel < current.length() ? sel : current.length());
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
     }
 
     public void load_matb()
@@ -349,7 +280,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -379,10 +309,6 @@ public class Activity_chitietsudung extends AppCompatActivity {
             Intent intent = new Intent(Activity_chitietsudung.this, Thongtincanhan.class);
             startActivity(intent);
         }
-        if(item.getItemId() == R.id.search)
-        {
-
-        }
         if (item.getItemId() == R.id.btnadd)
         {
             Dialog dialog = new Dialog(Activity_chitietsudung.this);
@@ -393,14 +319,64 @@ public class Activity_chitietsudung extends AppCompatActivity {
             add_maphong = dialog.findViewById(R.id.add_maphong);
             EditText add_nguoimuon = dialog.findViewById(R.id.edit_nguoimuon);
             EditText add_sdt = dialog.findViewById(R.id.edit_sdt);
-            EditText add_ngaymuon = dialog.findViewById(R.id.edit_ngaymuon);
+             EditText add_ngaymuon = dialog.findViewById(R.id.edit_ngaymuon);
             EditText add_soluong = dialog.findViewById(R.id.edit_soluong);
-            EditText add_ngaytra = dialog.findViewById(R.id.edit_ngaytra);
+             EditText add_ngaytra = dialog.findViewById(R.id.edit_ngaytra);
             Button add_muontra = dialog.findViewById(R.id.edit_muontra);
             Button exit_muontra = dialog.findViewById(R.id.exit_muontratb);
             TextView title_addmuontra = dialog.findViewById(R.id.title_editmuontra);
 
 
+            SimpleDateFormat dateFormat1,dateFormat2;
+            dateFormat1 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            dateFormat2= new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            Calendar calendar1 = Calendar.getInstance();
+            Calendar calendar2 = Calendar.getInstance();
+
+            add_ngaytra.setEnabled(false);
+            DatePickerDialog.OnDateSetListener date_ngaymuon = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    calendar1.set(Calendar.YEAR, year);
+                    calendar1.set(Calendar.MONTH,month);
+                    calendar1.set(Calendar.DAY_OF_MONTH,day);
+                    add_ngaymuon.setText(dateFormat1.format(calendar1.getTime()));
+                }
+            };
+            DatePickerDialog.OnDateSetListener date_ngaytra = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    calendar2.set(Calendar.YEAR, year);
+                    calendar2.set(Calendar.MONTH,month);
+                    calendar2.set(Calendar.DAY_OF_MONTH,day);
+                    if (dateFormat2.format(calendar2.getTime()).compareTo(dateFormat1.format(calendar1.getTime())) < 0) {
+                        Toast.makeText(dialog.getContext(), "Ngày trả không thể nhỏ hơn ngày mượn!\n Bạn vui lòng chọn lại ngày^^", Toast.LENGTH_SHORT).show();
+                        add_ngaytra.setText("");
+                    }
+                    else
+                    {
+                        add_ngaytra.setText(dateFormat2.format(calendar2.getTime()));
+                    }
+                }
+            };
+            add_ngaymuon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new DatePickerDialog(dialog.getContext(),date_ngaymuon,calendar1.get(Calendar.YEAR),
+                            calendar1.get(Calendar.MONTH),calendar1.get(Calendar.DAY_OF_MONTH)).show();
+                    add_ngaytra.setEnabled(true);
+                    add_ngaytra.setText("");
+                }
+            });
+
+            add_ngaytra.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new DatePickerDialog(dialog.getContext(),date_ngaytra,calendar2.get(Calendar.YEAR),
+                            calendar2.get(Calendar.MONTH),calendar2.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
             title_addmuontra.setText("Mượn thiết bị");
             add_muontra.setText("Thêm");
             load_matb();
@@ -465,127 +441,7 @@ public class Activity_chitietsudung extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
-            // Định dạng lại ngày mượn và ngày trả nhập vào theo dang dd/mm/yyyy
-            add_ngaymuon.addTextChangedListener(new TextWatcher() {
-                private String current = "";
-                private String ddmmyyyy = "DDMMYYYY";
-                private Calendar cal = Calendar.getInstance();
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().equals(current)) {
-                        String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
-                        String cleanC = current.replaceAll("[^\\d.]|\\.", "");
-
-                        int cl = clean.length();
-                        int sel = cl;
-                        for (int i = 2; i <= cl && i < 6; i += 2) {
-                            sel++;
-                        }
-                        //Fix for pressing delete next to a forward slash
-                        if (clean.equals(cleanC)) sel--;
-
-                        if (clean.length() < 8){
-                            clean = clean + ddmmyyyy.substring(clean.length());
-                        }else{
-                            //This part makes sure that when we finish entering numbers
-                            //the date is correct, fixing it otherwise
-                            int day  = Integer.parseInt(clean.substring(0,2));
-                            int mon  = Integer.parseInt(clean.substring(2,4));
-                            int year = Integer.parseInt(clean.substring(4,8));
-
-                            mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
-                            cal.set(Calendar.MONTH, mon-1);
-                            year = (year<1900)?1900:(year>2100)?2100:year;
-                            cal.set(Calendar.YEAR, year);
-                            // ^ first set year for the line below to work correctly
-                            //with leap years - otherwise, date e.g. 29/02/2012
-                            //would be automatically corrected to 28/02/2012
-
-                            day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                            clean = String.format("%02d%02d%02d",day, mon, year);
-                        }
-
-                        clean = String.format("%s/%s/%s", clean.substring(0, 2),
-                                clean.substring(2, 4),
-                                clean.substring(4, 8));
-
-                        sel = sel < 0 ? 0 : sel;
-                        current = clean;
-                        add_ngaymuon.setText(current);
-                        add_ngaymuon.setSelection(sel < current.length() ? sel : current.length());
-                    }
-                }
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            add_ngaytra.addTextChangedListener(new TextWatcher() {
-                private String current = "";
-                private String ddmmyyyy = "DDMMYYYY";
-                private Calendar cal = Calendar.getInstance();
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (!s.toString().equals(current)) {
-                        String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
-                        String cleanC = current.replaceAll("[^\\d.]|\\.", "");
-
-                        int cl = clean.length();
-                        int sel = cl;
-                        for (int i = 2; i <= cl && i < 6; i += 2) {
-                            sel++;
-                        }
-                        //Fix for pressing delete next to a forward slash
-                        if (clean.equals(cleanC)) sel--;
-
-                        if (clean.length() < 8){
-                            clean = clean + ddmmyyyy.substring(clean.length());
-                        }else{
-                            //This part makes sure that when we finish entering numbers
-                            //the date is correct, fixing it otherwise
-                            int day  = Integer.parseInt(clean.substring(0,2));
-                            int mon  = Integer.parseInt(clean.substring(2,4));
-                            int year = Integer.parseInt(clean.substring(4,8));
-
-                            mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
-                            cal.set(Calendar.MONTH, mon-1);
-                            year = (year<1900)?1900:(year>2100)?2100:year;
-                            cal.set(Calendar.YEAR, year);
-                            // ^ first set year for the line below to work correctly
-                            //with leap years - otherwise, date e.g. 29/02/2012
-                            //would be automatically corrected to 28/02/2012
-
-                            day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                            clean = String.format("%02d%02d%02d",day, mon, year);
-                        }
-
-                        clean = String.format("%s/%s/%s", clean.substring(0, 2),
-                                clean.substring(2, 4),
-                                clean.substring(4, 8));
-
-                        sel = sel < 0 ? 0 : sel;
-                        current = clean;
-                        add_ngaytra.setText(current);
-                        add_ngaytra.setSelection(sel < current.length() ? sel : current.length());
-                    }
-                }
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

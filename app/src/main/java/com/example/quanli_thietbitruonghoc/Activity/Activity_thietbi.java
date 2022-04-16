@@ -79,7 +79,6 @@ public class Activity_thietbi extends AppCompatActivity {
             String xuatxu = cursor.getString(2);
             thietbi.add(new class_thietbi(matb, tentb, xuatxu, maloai));
             adapter.notifyDataSetChanged();
-            // Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
         }
     }
 

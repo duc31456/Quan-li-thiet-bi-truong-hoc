@@ -136,6 +136,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:hint="ngày mượn:"
             android:inputType="date" />
     </LinearLayout>
@@ -185,6 +186,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:hint="ngày trả:"
             android:inputType="date" />
     </LinearLayout>

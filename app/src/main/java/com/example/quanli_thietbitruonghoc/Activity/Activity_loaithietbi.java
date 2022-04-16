@@ -145,7 +145,7 @@ public class Activity_loaithietbi extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("ma_loaitb", maloai);
         bundle.putString("ten_loaitb", tenloai);
-        Toast.makeText(this, maloai + tenloai, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, maloai + tenloai, Toast.LENGTH_SHORT).show();
         intent.putExtras(bundle);
         startActivity(intent);
 

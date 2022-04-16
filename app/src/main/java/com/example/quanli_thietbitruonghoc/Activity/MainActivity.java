@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
         sql.query_data("create table if not exists LOGIN_ADMIN(ID INTEGER, TAIKHOAN varchar(20) UNIQUE NOT NULL, SDT varchar(20), " +
                 "MATKHAU varchar(20), AVATAR blob, PRIMARY KEY (TAIKHOAN, ID))");
 
-       // sql.query_data("insert into LOG_IN values ('cun123', '12345', 'cun123', null)");
-       // sql.query_data("delete from LOGIN where Taikhoan = 'cun123'");
-        //sql.query_data("drop table LOGIN");
+       // sql.query_data("insert into LOGIN_ADMIN values ('cun123', '12345', 'cun123', null)");
+       // sql.query_data("delete from LOGIN_ADMIN where TAIKHOAN= 'cun123'");
+        //sql.query_data("drop table LOGIN_ADMIN");
         btndangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                             //truyền giá trị vào share để lưu đăng nhập
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("taikhoan", username);
-                         //   editor.putString("matkhau", password);
+                            editor.putString("matkhau", password);
                             editor.putBoolean("luudangnhap", true);
                             editor.commit();
                         }
