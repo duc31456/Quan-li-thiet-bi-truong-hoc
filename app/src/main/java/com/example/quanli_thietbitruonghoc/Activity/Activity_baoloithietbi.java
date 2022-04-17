@@ -33,7 +33,7 @@ import com.example.quanli_thietbitruonghoc.SQL;
 
 import java.util.ArrayList;
 
-public class Activity_baoloithietbi extends AppCompatActivity {
+public class Activity_baoloithietbi extends AppCompatActivity{
     Adapter_baoloithietbi adapter;
     ArrayList<class_baoloithietbi> baoloitb;
     ListView list;
@@ -50,7 +50,6 @@ public class Activity_baoloithietbi extends AppCompatActivity {
         setContentView(R.layout.activity_baoloithietbi);
 
         list = findViewById(R.id.listtinhtrang);
-
         baoloitb = new ArrayList<>();
 
         sql = new SQL(Activity_baoloithietbi.this, "Database", null, 1);
