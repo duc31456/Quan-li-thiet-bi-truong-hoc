@@ -19,7 +19,8 @@ import com.example.quanli_thietbitruonghoc.R;
 
 public class Trang_chu extends AppCompatActivity {
 
-    ImageView btnthongtin, btnthietbi, btnphonghoc, btnmuon_tra, btnbaoloitb, btngopy;
+    ImageView btnthongtin, btnthietbi, btnphonghoc, btnmuon_tra, btnbaoloitb, btnthongke;
+    TextView btngopy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,12 @@ public class Trang_chu extends AppCompatActivity {
         btnphonghoc = findViewById(R.id.btn3);
         btnmuon_tra = findViewById(R.id.btn4);
         btnbaoloitb = findViewById(R.id.btn5);
-        btngopy = findViewById(R.id.btn6);
+        btnthongke = findViewById(R.id.btn6);
+        btngopy = findViewById(R.id.btn7);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        btngopy.setPaintFlags(btngopy.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
 
         btnthongtin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,14 @@ public class Trang_chu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Trang_chu.this, Activity_baoloithietbi.class);
+                startActivity(intent);
+            }
+        });
+
+        btnthongke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Trang_chu.this, Thongke.class);
                 startActivity(intent);
             }
         });

@@ -39,7 +39,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class Activity_chitietsudung extends AppCompatActivity {
-    SQL sql;
+    public static SQL sql;
     ListView list;
     ArrayList<class_muontratb> muontratb;
     Adapter_muontratb adapter;
@@ -229,18 +229,22 @@ public class Activity_chitietsudung extends AppCompatActivity {
     public void load_matb()
     {
         array_matb = new ArrayList<>();
-        Cursor cursor = Activity_thietbi.sql.select_data("select * from THIETBI");
         array_matb.clear();
-        while(cursor.moveToNext()) {
-            String matb = cursor.getString(0);
-            array_matb.add(matb);
-        }
-        Cursor delete_cursor = Activity_baoloithietbi.sql.select_data("select MATB from TINHTRANG where TRANGTHAI = 'Đang sữa chữa'" +
-                "or TRANGTHAI = 'Báo hỏng'");
-        while(delete_cursor.moveToNext()) {
-            String deletematb = delete_cursor.getString(0);
-            array_matb.remove(deletematb);
-        }
+        try {
+            Cursor cursor = Activity_thietbi.sql.select_data("select * from THIETBI");
+            while(cursor.moveToNext()) {
+                String matb = cursor.getString(0);
+                array_matb.add(matb);
+            }
+            Cursor delete_cursor = Activity_baoloithietbi.sql.select_data("select MATB from TINHTRANG where TRANGTHAI = 'Đang sữa chữa'" +
+                    "or TRANGTHAI = 'Báo hỏng'");
+            while(delete_cursor.moveToNext()) {
+                String deletematb = delete_cursor.getString(0);
+                array_matb.remove(deletematb);
+            }
+        }catch (Exception e)
+        {}
+
        spinner_matb = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_matb);
         add_matb.setAdapter(spinner_matb);
     }
@@ -248,12 +252,17 @@ public class Activity_chitietsudung extends AppCompatActivity {
     public void load_maphong()
     {
         array_maphong = new ArrayList<>();
-        Cursor cursor = Activity_phonghoc.sql.select_data("select * from PHONGHOC");
         array_maphong.clear();
+        try{
+            Cursor cursor = Activity_phonghoc.sql.select_data("select * from PHONGHOC");
 
-        while(cursor.moveToNext()) {
-            String maphong = cursor.getString(0);
-            array_maphong.add(maphong);
+            while(cursor.moveToNext()) {
+                String maphong = cursor.getString(0);
+                array_maphong.add(maphong);
+            }
+        }catch (Exception e)
+        {
+
         }
         spinner_maphong = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_maphong);
         add_maphong.setAdapter(spinner_maphong);

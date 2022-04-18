@@ -9,6 +9,7 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/custom_camera.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/custom_thuvienanh.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/ic_muon_tra_thiet_bi.xml" value="0.1655" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/ic_thongke.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_baoloithietbi.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_chitietsudung.xml" value="0.22644927536231885" />
@@ -19,8 +20,9 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_phonghoc.xml" value="0.22644927536231885" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_thietbi.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_thong_ke.xml" value="0.16032608695652173" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_thongke.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_thongtincanhan.xml" value="0.264" />
-        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_trang_chu.xml" value="0.4" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/activity_trang_chu.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/dialog_editloaithietbi.xml" value="0.22644927536231885" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/dialog_muontrathietbi.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/dialog_phonghoc.xml" value="0.22644927536231885" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/layout_itemmuontrathietbi.xml" value="0.22644927536231885" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/layout_itemphonghoc.xml" value="0.22644927536231885" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/layout_itemthietbi.xml" value="0.2" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/layout/layout_itemthongke.xml" value="0.21920289855072464" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/activity_loaithietbi.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/activity_main_drawer.xml" value="0.19183673469387755" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/Quanli_thietbitruonghoc/app/src/main/res/menu/thongtin_canhan.xml" value="0.25416666666666665" />

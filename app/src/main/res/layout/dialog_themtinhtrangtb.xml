@@ -13,7 +13,7 @@
         android:background="#1E88E5"
         android:gravity="center"
         android:text="Thêm thiết bị lỗi"
-        android:textColor="#FDD835"
+        android:textColor="#FFEB3B"
         android:textSize="30sp"
         android:textStyle="bold" />
 

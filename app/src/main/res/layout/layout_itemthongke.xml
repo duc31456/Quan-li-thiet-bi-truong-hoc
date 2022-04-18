@@ -26,27 +26,22 @@
 
     <TextView
         android:id="@+id/itemthongkesoluong"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
         android:layout_height="100dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:hint="Tình trạng:"
+        android:hint="Số lượng:"
         android:textColor="#6EBD1A"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/deletetinhtrang"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/itemthongkengaytra"
+        android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:scaleType="fitCenter"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        android:gravity="center"
+        android:hint="Ngày trả:"
+        android:textColor="#6EBD1A"
+        android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/edittinhtrang"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        app:srcCompat="@android:drawable/ic_menu_send" />
 </LinearLayout>

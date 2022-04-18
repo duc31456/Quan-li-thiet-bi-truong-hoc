@@ -1,10 +1,13 @@
 package com.example.quanli_thietbitruonghoc.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.CursorWindow;
 import android.graphics.Bitmap;
@@ -13,6 +16,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -190,6 +195,45 @@ public class Thongtincanhan extends AppCompatActivity {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.thongtin_canhan, menu);
+        //ẩn item menu
+        menu.findItem(R.id.search).setVisible(false);
+        menu.findItem(R.id.btnadd).setVisible(false);
+        menu.findItem(R.id.btnthongtin).setVisible(false);
+        return super.onCreateOptionsMenu(menu);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.btndangxuat)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Thông báo");
+            alert.setMessage("Bạn có muốn đăng xuất không?");
+            alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(Thongtincanhan.this, MainActivity.class);
+                    startActivity(intent);
+                    dialogInterface.dismiss();
+                }
+            });
+            alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            alert.show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

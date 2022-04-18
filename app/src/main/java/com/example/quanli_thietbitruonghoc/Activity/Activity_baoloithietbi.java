@@ -44,6 +44,8 @@ public class Activity_baoloithietbi extends AppCompatActivity{
     String tempmatb, temptinhtrang;
 
     public static SQL sql;
+
+    Cursor cursor5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,25 +167,28 @@ public class Activity_baoloithietbi extends AppCompatActivity{
         array_matb = new ArrayList<>();
         array_tinhtrang = new ArrayList<>();
         array_tentb = new ArrayList<>();
-        Cursor cursor = Activity_thietbi.sql.select_data("select MATB, TENTB from THIETBI");
         array_matb.clear();
         array_tinhtrang.clear();
         array_tentb.clear();
-        while(cursor.moveToNext()) {
-            String matb = cursor.getString(0);
-            String tentb = cursor.getString(1);
-            array_matb.add(matb);
-            array_tentb.add(tentb);
-        }
-        array_tinhtrang.add("Báo hỏng");
-        array_tinhtrang.add("Đang sữa chữa");
-        array_tinhtrang.add("Sữa chữa thành công");
-        spinner_matb = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_matb);
-        spinner_tinhtrang = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_tinhtrang);
+        try {
+            cursor5 = Activity_thietbi.sql.select_data("select MATB, TENTB from THIETBI");
+            while (cursor5.moveToNext()) {
+                String matb = cursor5.getString(0);
+                String tentb = cursor5.getString(1);
+                array_matb.add(matb);
+                array_tentb.add(tentb);
+            }
+        }catch (Exception e)
+        {}
+            array_tinhtrang.add("Báo hỏng");
+            array_tinhtrang.add("Đang sữa chữa");
+            array_tinhtrang.add("Sữa chữa thành công");
+            spinner_matb = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_matb);
+            spinner_tinhtrang = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_tinhtrang);
 
 
-        spinnermatb.setAdapter(spinner_matb);
-        spinnertinhtrang.setAdapter(spinner_tinhtrang);
+            spinnermatb.setAdapter(spinner_matb);
+            spinnertinhtrang.setAdapter(spinner_tinhtrang);
     }
 
     @Override

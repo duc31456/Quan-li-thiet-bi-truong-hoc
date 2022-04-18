@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.quanli_thietbitruonghoc.Activity.Activity_baoloithietbi;
 import com.example.quanli_thietbitruonghoc.Class.class_baoloithietbi;
-import com.example.quanli_thietbitruonghoc.Class.class_muontratb;
 import com.example.quanli_thietbitruonghoc.R;
 
 import java.util.ArrayList;
@@ -100,9 +99,9 @@ public class Adapter_baoloithietbi extends BaseAdapter implements Filterable {
 
             view_holer.imgedit = view.findViewById(R.id.edittinhtrang);
             view_holer.imgdelete = view.findViewById(R.id.deletetinhtrang);
-            view_holer.itemmatb = view.findViewById(R.id.itemmatb);
-            view_holer.itemtentb = view.findViewById(R.id.itemtentb);
-           view_holer.itemtinhtrang = view.findViewById(R.id.itemtinhtrang);
+            view_holer.itemmatb = view.findViewById(R.id.itemthongkematb);
+            view_holer.itemtentb = view.findViewById(R.id.itemthongketentb);
+           view_holer.itemtinhtrang = view.findViewById(R.id.itemthongkesoluong);
 
             view.setTag(view_holer);
         }
