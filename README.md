@@ -1,4 +1,2 @@
 # Quan-li-thiet-bi-truong-hoc
-
-
-Giữa kì android =))
+Java android sử dụng sqlite để truy vấn dữ liệu
