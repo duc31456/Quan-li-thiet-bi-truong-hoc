@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 import com.example.quanli_thietbitruonghoc.Class.class_thietbi;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Activity_thietbi extends AppCompatActivity {
@@ -41,6 +43,14 @@ public class Activity_thietbi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thietbi);
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         list1 = findViewById(R.id.listtinhtrang);
         titlethietbi = findViewById(R.id.titlethietbi);
@@ -80,6 +90,7 @@ public class Activity_thietbi extends AppCompatActivity {
             thietbi.add(new class_thietbi(matb, tentb, xuatxu, maloai));
             adapter.notifyDataSetChanged();
         }
+        cursor.close();
     }
 
     //xóa thiết bị

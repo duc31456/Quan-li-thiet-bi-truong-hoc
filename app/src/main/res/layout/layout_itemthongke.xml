@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,7 +8,7 @@
         android:id="@+id/itemthongkematb"
         android:layout_width="60dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
+        android:background="@drawable/custom_listview"
         android:gravity="center"
         android:hint="Mã thiết bị:"
         android:textColor="#F44336"
@@ -16,9 +16,10 @@
 
     <TextView
         android:id="@+id/itemthongketentb"
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/custom_listview"
         android:gravity="center"
         android:hint="Tên thiết bị"
         android:textColor="#2196F3"
@@ -28,7 +29,8 @@
         android:id="@+id/itemthongkesoluong"
         android:layout_width="50dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
+        android:layout_marginLeft="220dp"
+        android:background="@drawable/custom_listview"
         android:gravity="center"
         android:hint="Số lượng:"
         android:textColor="#6EBD1A"
@@ -38,10 +40,11 @@
         android:id="@+id/itemthongkengaytra"
         android:layout_width="150dp"
         android:layout_height="100dp"
-        android:layout_weight="1"
+        android:layout_marginLeft="270dp"
+        android:background="@drawable/custom_listview"
         android:gravity="center"
         android:hint="Ngày trả:"
         android:textColor="#6EBD1A"
         android:textSize="20sp" />
 
-</LinearLayout>
+</RelativeLayout>

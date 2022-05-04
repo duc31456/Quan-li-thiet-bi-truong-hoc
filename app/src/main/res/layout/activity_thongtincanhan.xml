@@ -27,7 +27,7 @@
             android:textSize="37sp"
             android:textStyle="bold" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/thaydoiimage"
             android:layout_width="match_parent"
             android:layout_height="150dp"

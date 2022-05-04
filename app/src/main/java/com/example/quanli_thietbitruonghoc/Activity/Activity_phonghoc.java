@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 import com.example.quanli_thietbitruonghoc.Class.class_phonghoc;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Activity_phonghoc extends AppCompatActivity {
@@ -39,6 +41,14 @@ public class Activity_phonghoc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonghoc);
+
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         listphonghoc = findViewById(R.id.listtinhtrang);
 
@@ -66,8 +76,8 @@ public class Activity_phonghoc extends AppCompatActivity {
             Integer sotang = cursor.getInt(2);
             phonghoc.add(new class_phonghoc(maphong, tenphong, sotang));
             adapter.notifyDataSetChanged();
-
         }
+        cursor.close();
     }
 
     //xóa phòng học
@@ -75,7 +85,7 @@ public class Activity_phonghoc extends AppCompatActivity {
     {
         android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(Activity_phonghoc.this);
         dialog.setTitle("THÔNG BÁO");
-        dialog.setMessage("Bạn có muốn xóa loại thiết bị này?");
+        dialog.setMessage("Bạn có muốn xóa phòng học này?");
         dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

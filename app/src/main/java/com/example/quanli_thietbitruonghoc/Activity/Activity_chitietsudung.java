@@ -11,7 +11,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -29,10 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quanli_thietbitruonghoc.Adapter.Adapter_muontratb;
+import com.example.quanli_thietbitruonghoc.BuildConfig;
 import com.example.quanli_thietbitruonghoc.Class.class_muontratb;
 import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,9 +60,24 @@ public class Activity_chitietsudung extends AppCompatActivity {
     ArrayList<String> array_maphong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietsudung);
 
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         list = findViewById(R.id.list);
         muontratb = new ArrayList<>();
@@ -92,6 +111,7 @@ public class Activity_chitietsudung extends AppCompatActivity {
             muontratb.add(new class_muontratb(matb, maphong, nguoimuon, sdt, ngaymuon, soluong, ngaytra));
             adapter.notifyDataSetChanged();
         }
+        cursor.close();
     }
 
     //xóa thông tin sử dụng
@@ -236,12 +256,14 @@ public class Activity_chitietsudung extends AppCompatActivity {
                 String matb = cursor.getString(0);
                 array_matb.add(matb);
             }
+            cursor.close();
             Cursor delete_cursor = Activity_baoloithietbi.sql.select_data("select MATB from TINHTRANG where TRANGTHAI = 'Đang sữa chữa'" +
                     "or TRANGTHAI = 'Báo hỏng'");
             while(delete_cursor.moveToNext()) {
                 String deletematb = delete_cursor.getString(0);
                 array_matb.remove(deletematb);
             }
+            delete_cursor.close();
         }catch (Exception e)
         {}
 
@@ -260,6 +282,7 @@ public class Activity_chitietsudung extends AppCompatActivity {
                 String maphong = cursor.getString(0);
                 array_maphong.add(maphong);
             }
+            cursor.close();
         }catch (Exception e)
         {
 
@@ -419,8 +442,7 @@ public class Activity_chitietsudung extends AppCompatActivity {
                 public void onClick(View view) {
 
                     if (!add_nguoimuon.getText().toString().trim().equals("") || !add_sdt.getText().toString().trim().equals("") ||
-                     !add_ngaymuon.getText().toString().trim().equals("") || !add_soluong.getText().toString().trim().equals("") ||
-                     !add_ngaytra.getText().toString().trim().equals("")) {
+                     !add_ngaymuon.getText().toString().trim().equals("") || !add_soluong.getText().toString().trim().equals("")) {
 
                         try {
                             sql.query_data("INSERT INTO MUONTRA VALUES ('" + temp_matb.trim() +

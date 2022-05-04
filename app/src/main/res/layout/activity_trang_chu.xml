@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
+    android:background="@drawable/menufinal"
     android:orientation="vertical"
     tools:context=".Activity.Trang_chu">
 
@@ -15,7 +15,7 @@
         android:gravity="center"
         android:paddingTop="15dp"
         android:text="QUẢN LÝ THIẾT BỊ TRƯỜNG HỌC"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/black"
         android:textColorHighlight="#E53935"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -224,7 +224,7 @@
         android:layout_marginTop="680dp"
         android:gravity="center"
         android:text="Góp ý"
-        android:textColor="#D81B31"
+        android:textColor="#FDD835"
         android:textSize="15sp"
         android:textStyle="bold" />
 

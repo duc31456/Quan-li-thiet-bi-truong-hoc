@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
        // sql.query_data("insert into LOGIN_ADMIN values ('cun123', '12345', 'cun123', null)");
        // sql.query_data("delete from LOGIN_ADMIN where TAIKHOAN= 'cun123'");
         //sql.query_data("drop table LOGIN_ADMIN");
+
         btndangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Trang_chu.class);
                // selectadmin();
                 for(int i = 0; i < admin.size(); i++) {
-                    if (admin.get(i).getTaikhoan().equals(editname.getText().toString().trim()) && admin.get(i).getMatkhau().equals(editpass.getText().toString().trim()))
+                    if (admin.get(i).getTaikhoan().equals(editname.getText().toString().trim())
+                            && admin.get(i).getMatkhau().equals(editpass.getText().toString().trim()))
                     {
                         username = editname.getText().toString().trim();
                         password = editpass.getText().toString().trim();
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 admin.add(new class_admin(id,taikhoan, sdt, matkhau, avatar));
             //   Toast.makeText(MainActivity.this, taikhoan +"\n"+ matkhau , Toast.LENGTH_SHORT).show();
             }
+            cursor.close();
     }
 
     public void luudangnhap()

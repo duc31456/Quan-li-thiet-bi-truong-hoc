@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 import com.example.quanli_thietbitruonghoc.Class.class_loaithietbi;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Activity_loaithietbi extends AppCompatActivity {
@@ -40,6 +42,13 @@ public class Activity_loaithietbi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loaithietbi2);
 
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         list = findViewById(R.id.listtinhtrang);
         loaithietbi = new ArrayList<>();
@@ -49,7 +58,6 @@ public class Activity_loaithietbi extends AppCompatActivity {
         sql.query_data("CREATE TABLE IF NOT EXISTS LOAITHIETBI(MALOAI varchar(20) PRIMARY KEY, TENLOAI NVARCHAR(50))");
        // sql.query_data("INSERT INTO LOAITHIETBI VALUES ('DH', 'Điều hòa')");
         select_loaithietbi();
-
     }
 
     //lấy loại thiết bị
@@ -67,6 +75,7 @@ public class Activity_loaithietbi extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             // Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
         }
+        cursor.close();
     }
 
     //xóa thiết bị
@@ -221,10 +230,12 @@ public class Activity_loaithietbi extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (!edittenloai.getText().toString().trim().equals("") || !editmaloai.getText().toString().trim().equals("")) {
+                    if (!edittenloai.getText().toString().trim().equals("") ||
+                            !editmaloai.getText().toString().trim().equals("")) {
 
                         try {
-                            sql.query_data("INSERT INTO LOAITHIETBI VALUES ('" + editmaloai.getText().toString().trim() +
+                            sql.query_data("INSERT INTO LOAITHIETBI VALUES ('" +
+                                    editmaloai.getText().toString().trim() +
                                     "', '" + edittenloai.getText().toString().trim() + "')");
                             select_loaithietbi();
                             dialog.dismiss();

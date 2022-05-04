@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,17 +51,16 @@ public class Thongtincanhan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thongtincanhan);
-        //bộ nhớ con trỏ từ 2MB lên 100MB
+
         try {
             Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
             field.setAccessible(true);
-            field.set(null, 100 * 1024 * 1024); //100MB
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
         } catch (Exception e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
         image = findViewById(R.id.thaydoiimage);
         txtsdt = findViewById(R.id.sdt);

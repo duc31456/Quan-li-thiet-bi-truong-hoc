@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.example.quanli_thietbitruonghoc.Class.class_thietbi;
 import com.example.quanli_thietbitruonghoc.R;
 import com.example.quanli_thietbitruonghoc.SQL;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Activity_baoloithietbi extends AppCompatActivity{
@@ -51,6 +53,13 @@ public class Activity_baoloithietbi extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baoloithietbi);
 
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         list = findViewById(R.id.listtinhtrang);
         baoloitb = new ArrayList<>();
 
@@ -113,6 +122,7 @@ public class Activity_baoloithietbi extends AppCompatActivity{
             baoloitb.add(new class_baoloithietbi(matb, tentb, tinhtrang));
             adapter.notifyDataSetChanged();
         }
+        cursor.close();
     }
 
     public void edit_tinhtrangtb(String matb)
@@ -178,6 +188,7 @@ public class Activity_baoloithietbi extends AppCompatActivity{
                 array_matb.add(matb);
                 array_tentb.add(tentb);
             }
+            cursor5.close();
         }catch (Exception e)
         {}
             array_tinhtrang.add("Báo hỏng");

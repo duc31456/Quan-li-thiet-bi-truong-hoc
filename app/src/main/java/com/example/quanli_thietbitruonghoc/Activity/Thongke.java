@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import com.example.quanli_thietbitruonghoc.Class.class_baoloithietbi;
 import com.example.quanli_thietbitruonghoc.Class.class_thongke;
 import com.example.quanli_thietbitruonghoc.R;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Thongke extends AppCompatActivity {
@@ -51,6 +53,14 @@ public class Thongke extends AppCompatActivity {
         spinnerthongke = findViewById(R.id.spinnerthongke);
         btninthongtin = findViewById(R.id.btninthongtin);
         thongke = new ArrayList<>();
+
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //load spinner
         load_spinner();
@@ -88,11 +98,13 @@ public class Thongke extends AppCompatActivity {
                 String ngaymuon = cursor.getString(0);
                 array_ngaymuon.add(ngaymuon);
             }
-
+            cursor.close();
         }catch (Exception e)
         {}
         spinner_ngaymuon = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, array_ngaymuon);
         spinnerthongke.setAdapter(spinner_ngaymuon);
+
+
     }
 
     public void load_list()
@@ -114,9 +126,11 @@ public class Thongke extends AppCompatActivity {
                 Integer soluong = cursor.getInt(1);
                 thongke.add(new class_thongke(matb, tentb, tempngaymuon, soluong, ngaytra));
             }
+            cursor.close();
         }
         catch (Exception e)
         { }
+
     }
 
     @Override

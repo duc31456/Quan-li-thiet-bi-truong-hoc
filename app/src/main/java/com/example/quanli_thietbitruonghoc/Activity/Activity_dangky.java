@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +25,7 @@ import com.example.quanli_thietbitruonghoc.R;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 
 public class Activity_dangky extends AppCompatActivity {
     Button btncamera, btnfolder, btndangky2;
@@ -38,6 +40,14 @@ public class Activity_dangky extends AppCompatActivity {
         setContentView(R.layout.activity_dangky);
         ActionBar actionBar =getSupportActionBar();
         actionBar.hide();
+
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 102400 * 1024); //the 102400 is the new size added
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         btncamera = findViewById(R.id.camera);
         btnfolder = findViewById(R.id.folder);
@@ -79,7 +89,8 @@ public class Activity_dangky extends AppCompatActivity {
                 if(!txttk.getText().toString().trim().equals("") || !txtmk.getText().toString().trim().equals("") || !txtsdt.getText().toString().trim().equals("")) {
                     if (txtmk.getText().toString().equals(txtconfirm.getText().toString())) {
                         try {
-                            MainActivity.sql.insert_data(txttk.getText().toString().trim(), txtsdt.getText().toString().trim() , txtmk.getText().toString().trim(), avatar);
+                            MainActivity.sql.insert_data(txttk.getText().toString().trim(), txtsdt.getText().toString().trim()
+                                    ,txtmk.getText().toString().trim(), avatar);
                             MainActivity.selectadmin();
                             Toast.makeText(Activity_dangky.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                             finish();
